@@ -1,6 +1,5 @@
 import numpy as np
 from typing import Any
-from numpy.typing import NDArray
 from enum import Enum
 import cv2  # type: ignore
 import math
@@ -9,9 +8,6 @@ from imgui_bundle import imgui, immvision, immapp, imgui_md
 from imgui_bundle.demos_python import demo_utils
 
 immvision.use_rgb_color_order()
-
-ImageRgb = NDArray[np.uint8]
-ImageFloat = NDArray[np.floating[Any]]
 
 
 class SobelParams:
@@ -27,7 +23,7 @@ class SobelParams:
     orientation: Orientation = Orientation.Vertical
 
 
-def compute_sobel(image: ImageRgb, params: SobelParams) -> ImageFloat:
+def compute_sobel(image, params: SobelParams):
     """Our image processing pipeline"""
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     img_float = gray / 255.0
@@ -99,8 +95,8 @@ def gui_sobel_params(params: SobelParams) -> bool:
 #     - parameters to display the images via ImmVision: they share the same zoom key,
 #       so that we can move the two image in sync
 class AppState:
-    image: ImageRgb
-    image_sobel: ImageFloat
+    image: Any
+    image_sobel: Any
     sobel_params: SobelParams
 
     immvision_params: immvision.ImageParams
